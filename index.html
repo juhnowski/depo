@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Настройка БК</title>
+    <link rel="stylesheet" style="text/css" href="deps/opt/bootstrap.css" />
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>
+          <img src="metro.png" >
+        </td>
+        <td>
+          <h1>Настройки БК</h1>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <form></form>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <div id="res" class="alert"></div>
+    <script type="text/javascript" src="deps/jquery.min.js"></script>
+    <script type="text/javascript" src="deps/underscore.js"></script>
+    <script type="text/javascript" src="deps/opt/jsv.js"></script>
+    <script type="text/javascript" src="lib/jsonform.js"></script>
+    <script type="text/javascript">
+      $('form').jsonForm({
+        schema: {
+          name: {
+            type: 'string',
+            title: 'Уникальный номер поезда',
+            required: true,
+            description: "Поезд может иметь как номер, так и носить собственное имя. Возможно использование как первого, так и второго варианта."
+          },
+          branch: {
+            type: 'string',
+            title: 'Ветка',
+            enum:[
+                'красная',
+                'зеленая'
+              ],
+              description: '<img src="Map.png">'
+          },
+          isDebug: {
+            type: 'boolean',
+            title: 'Включить режим отладки',
+            description: 'Режим отладки позволяет собирать в файлы более детальную информацию о работе оборудования. Данная информация нужна для отладки и выявления сбоев в работе оборудования.'
+          },
+          A1: {
+            type: 'string',
+            title: 'URL для камеры А1',
+            description: '<img src="schema_a1.png">'
+          },
+          B1: {
+            type: 'string',
+            title: 'URL для камеры B1',
+            description: '<img src="schema_b1.png">'
+          },
+          A2: {
+            type: 'string',
+            title: 'URL для камеры А2',
+            description: '<img src="schema_a2.png">'
+          },
+          B2: {
+            type: 'string',
+            title: 'URL для камеры B2',
+            description: '<img src="schema_b2.png">'
+          },
+          A3: {
+            type: 'string',
+            title: 'URL для камеры А3',
+            description: '<img src="schema_a3.png">'
+          },
+          B3: {
+            type: 'string',
+            title: 'URL для камеры B3',
+            description: '<img src="schema_b3.png">'
+          },
+          A4: {
+            type: 'string',
+            title: 'URL для камеры А4',
+            description: '<img src="schema_a4.png">'
+          },
+          B4: {
+            type: 'string',
+            title: 'URL для камеры B4',
+            description: '<img src="schema_b4.png">'
+          },
+          K1: {
+            type: 'string',
+            title: 'URL для камеры K1',
+            description: '<img src="schema_k1.png">'
+          },
+          K4: {
+            type: 'string',
+            title: 'URL для камеры K4',
+            description: '<img src="schema_k4.png">'
+          },
+          D1: {
+            type: 'string',
+            title: 'URL для камеры D1',
+            description: '<img src="schema_d1.png">'
+          },
+          D4: {
+            type: 'string',
+            title: 'URL для камеры D4',
+            description: '<img src="schema_d4.png">'
+          },
+          Screen3x3_1: {
+            type: 'array',
+            title: 'Разбивка экрана 3x3  для условной головы состава',
+            'items': {
+              'type':'string',
+              'enum':["A1","B1","A2","B2","A3","B3","A4","B4","K1","K4","D1","D4"
+              ]
+            },
+            description: '<img src="screen3x3_1.png">'
+          },
+          Screen3x3_2: {
+            type: 'array',
+            title: 'Разбивка экрана 3x3 для условного хвоста состава',
+            'items': {
+              'type':'string',
+              'enum':["A1","B1","A2","B2","A3","B3","A4","B4","K1","K4","D1","D4"
+              ]
+            },
+            description: '<img src="screen3x3_2.png">'
+          },
+          Screen2x3_1: {
+            type: 'array',
+            title: 'Разбивка экрана 2x3  для условной головы состава',
+            'items': {
+              'type':'string',
+              'enum':["A1","B1","A2","B2","A3","B3","A4","B4","K1","K4","D1","D4"
+              ]
+            },
+            description: '<img src="screen2x3_1.png">'
+          },
+          Screen2x3_2: {
+            type: 'array',
+            title: 'Разбивка экрана 2x3 для условного хвоста состава',
+            'items': {
+              'type':'string',
+              'enum':["A1","B1","A2","B2","A3","B3","A4","B4","K1","K4","D1","D4"
+              ]
+            },
+            description: '<img src="screen2x3_2.png">'
+          },
+          Screen2x2_1: {
+            type: 'array',
+            title: 'Разбивка экрана 2x2 вариант 1',
+            'items': {
+              'type':'string',
+              'enum':["A1","B1","A2","B2","A3","B3","A4","B4","K1","K4","D1","D4"
+              ]
+            },
+            description: '<img src="screen2x2_1.png">'
+          },
+          Screen2x2_2: {
+            type: 'array',
+            title: 'Разбивка экрана 2x2 вариант 2',
+            'items': {
+              'type':'string',
+              'enum':["A1","B1","A2","B2","A3","B3","A4","B4","K1","K4","D1","D4"
+              ]
+            },
+            description: '<img src="screen2x2_2.png">'
+          },
+          Screen2x2_3: {
+            type: 'array',
+            title: 'Разбивка экрана 2x2 вариант 3',
+            'items': {
+              'type':'string',
+              'enum':["A1","B1","A2","B2","A3","B3","A4","B4","K1","K4","D1","D4"
+              ]
+            },
+            description: '<img src="screen2x2_3.png">'
+          },
+          'brightness': {
+            type: 'integer',
+            title: 'Яркость'
+          },
+          'contrast': {
+        		type: 'integer',
+            title: 'Контрастность'
+        	},
+          'shift_x': {
+        		type: 'integer',
+            title: 'Сдвиг экрана по горизонтали'
+        	},
+        	'shift_y': {
+        		type: 'integer',
+            title: 'Сдвиг экрана по вертикали'
+        	},
+        	'compress_x': {
+        		type: 'integer',
+            title: 'Сжатие экрана по горизонтали'
+        	},
+        	'compress_y': {
+        		type: 'integer',
+            title: 'Сжатие экрана по вертикали'
+        	},
+        	'KEY_F1': {
+        		type: 'integer',
+            title: 'Код кнопки F1',
+            description: '<img src="key_f1.png">'
+        	},
+        	'KEY_F2': {
+        		type: 'integer',
+            title: 'Код кнопки F2',
+            description: '<img src="key_f2.png">'
+        	},
+        	'KEY_F3': {
+        		type: 'integer',
+            title: 'Код кнопки F3',
+            description: '<img src="key_f3.png">'
+        	},
+        	'KEY_F4': {
+        		type: 'integer',
+            title: 'Код кнопки F4',
+            description: '<img src="key_f4.png">'
+        	},
+        	'KEY_F5': {
+        		type: 'integer',
+            title: 'Код кнопки F5',
+            description: '<img src="key_f5.png">'
+        	},
+        	'KEY_F6': {
+        		type: 'integer',
+            title: 'Код кнопки F6',
+            description: '<img src="key_f6.png">'
+        	},
+        	'KEY_F12': {
+        		type: 'integer',
+            title: 'Код кнопки F12',
+            description: '<img src="key_f12.png">'
+        	},
+        	'KEY_Num0': {
+        		type: 'integer',
+            title: 'Код кнопки 0',
+            description: '<img src="key_0.png">'
+        	},
+        	'KEY_Num1': {
+        		type: 'integer',
+            title: 'Код кнопки 1',
+            description: '<img src="key_1.png">'
+        	},
+        	'KEY_Num2': {
+        		type: 'integer',
+            title: 'Код кнопки 2',
+            description: '<img src="key_2.png">'
+        	},
+        	'KEY_Num3': {
+        		type: 'integer',
+            title: 'Код кнопки 3',
+            description: '<img src="key_3.png">'
+        	},
+        	'KEY_Num4': {
+        		type: 'integer',
+            title: 'Код кнопки 4',
+            description: '<img src="key_4.png">'
+        	},
+        	'KEY_Num5': {
+        		type: 'integer',
+            title: 'Код кнопки 5',
+            description: '<img src="key_5.png">'
+        	},
+        	'KEY_Num6': {
+        		type: 'integer',
+            title: 'Код кнопки 6',
+            description: '<img src="key_6.png">'
+        	},
+        	'KEY_Num7': {
+        		type: 'integer',
+            title: 'Код кнопки 7',
+            description: '<img src="key_7.png">'
+        	},
+        	'KEY_Num8': {
+        		type: 'integer',
+            title: 'Код кнопки 8',
+            description: '<img src="key_8.png">'
+        	},
+        	'KEY_Num9': {
+        		type: 'integer',
+            title: 'Код кнопки 9',
+            description: '<img src="key_9.png">'
+        	},
+        	'KEY_ENTER': {
+        		type: 'integer',
+            title: 'Код кнопки ENTER',
+            description: '<img src="key_enter.png">'
+        	},
+        	'KEY_ESC': {
+        		type: 'integer',
+            title: 'Код кнопки ESC',
+            description: '<img src="key_esc.png">'
+        	},
+          'id_can': {
+        		type: 'array',
+            title: 'CAN',
+            items: {
+              type: 'string',
+              enum: ["nothing","IRMA"]
+            },
+            description: 'Если к БК не подключено устройство с CAN протоколом, то нужно выбрать nothing.'
+        	},
+          'rs_485_1': {
+        		type: 'array',
+            title: 'RS 485 Канал №1',
+            items: {
+              type: 'string',
+              enum: ["nothing","ORBITA","ISKRA","OMNICOM"]
+            },
+            description: 'Если к БК не подключено устройство по порту RS-485, то нужно выбрать nothing.'
+        	},
+          'rs_485_2': {
+            type: 'array',
+            title: 'RS 485 Канал №2',
+            items: {
+              type: 'string',
+              enum: ["nothing","ORBITA","ISKRA","OMNICOM"]
+            },
+            description: 'Если к БК не подключено устройство по порту RS-485, то нужно выбрать nothing.'
+          },
+          'rs_232_1': {
+            type: 'array',
+            title: 'RS 232 Канал №1',
+            items: {
+              type: 'string',
+              enum: ["nothing","in GNSS","out GNSS"]
+            },
+            description: 'Если к БК не подключено устройство по порту RS-232, то нужно выбрать nothing.'
+          },
+          'rs_232_2': {
+            type: 'array',
+            title: 'RS 232 Канал №2',
+            items: {
+              type: 'string',
+              enum: ["nothing","in GNSS","out GNSS"]
+            },
+            description: 'Если к БК не подключено устройство по порту RS-232, то нужно выбрать nothing.'
+          },
+          'videoreg': {
+            type: 'array',
+            items: {
+              type: 'object',
+              title: 'Видеорегистратор',
+              properties: {
+                'id': {
+                  type: 'integer',
+                  title: '№',
+                  required: true,
+                  description: 'Идентификационный уникальный номер видеорегистратора'
+                },
+                'alias': {
+                  type: 'string',
+                  title: 'Псевдоним',
+                  description: 'Псевдоним видеорегистратора позволяет ему присвоить имя, что более понятно для человека чем идентификационный номер'
+                },
+                'channels': {
+                  type: 'integer',
+                  title: 'Количество каналов',
+                  required: true,
+                  description: 'Видеорегистратор может иметь раздичное количество каналов. К каналу может быть подключена только одна камера или он может быть свободным.'
+                }
+              }
+            }
+          },
+          'disk': {
+            type: 'array',
+            items: {
+              type: 'object',
+              title: 'Носитель информации',
+              properties: {
+                'id': {
+                  type: 'integer',
+                  title: '№',
+                  required: true,
+                  description: 'Уникальный идентификационный номер носителя информации - число.'
+                },
+                'disk_type': {
+                  type: 'string',
+                  title: 'Тип носителя',
+                  enum: ["HDD","SD","FLASH"],
+                  required: true,
+                  description: 'Данное поле определяет тип носителя.'
+                },
+                'disk_free': {
+                  type: 'integer',
+                  title: 'Объем свободной памяти',
+                  description: 'Данное поле информационное и показывает свободный объем памяти на носителе.'
+                },
+                'disk_total': {
+                  type: 'integer',
+                  title: 'Общий объем памяти',
+                  description: 'Данное поле информационное и показывает общий размер носителя.'
+                }
+              }
+            },
+            description: 'Носитель информации нужен для операционной системы, временного хранилища видеозаписей. Периодически данные с диска передаются на сервер, тем самым, высвобождая пространство на носителе.'
+          },
+          'date_format': {
+        		type: 'array',
+            title: 'Формат даты',
+            items: {
+              type: 'string',
+        		    enum: ["MM/DD/YY","YY/MM/DD","DD/MM/YY"]
+              }
+        	},
+          'time_format': {
+            type: 'array',
+            title: 'Формат времени',
+            items: {
+              type: 'string',
+                enum: ["12","24"]
+              }
+          },
+          'time_zone': {
+            type: 'array',
+            title: 'Часовой пояс',
+            items: {
+              type: 'string',
+                enum: ["+7","+7:20","+7:30","+8","+8:30","+8:45","+9","+9:30",
+                       "+10","+10:30","+11","+11:30","+12","+12:45","+13",
+                       "+13:45","+14","−12","−11","−10","−9:30","−9","−8:30",
+                       "−8","−7","−6","−5","−4:30","−4","−3:30","−3","−2:30",
+                       "−2","−1","−0:44","−0:25","0","+0:20","+0:30","+1","+2",
+                       "+3","+3:30","+4","+4:30","+4:51","+5","+5:30","+5:40",
+                       "+5:45","+6","+6:30"]
+              }
+          },
+          'time_sync': {
+            type: 'array',
+            title: 'Способ синхронизации времени',
+            items: {
+              type: 'string',
+                enum: ["GNSS","VIDEOSERVER","SYNC"]
+              },
+            description: 'Возможны три варианта синхронизации времени на БК: ГНСС, получать время с видеосервера или через интернет с помощью службы точного времени.'
+          },
+          'sync_on': {
+        		type: 'boolean',
+            title: "Включить синхронизацию",
+            description: 'По умолчанию синхронизация времени выключена и используется локальное время БК'
+        	},
+          'add_hours': {
+            type: 'array',
+            title: 'Прибавить 1-час, 2-часа',
+            items: {
+              type: 'string',
+                enum: ["1","2"]
+              },
+            description: 'При переходе на летнее время в разных регионах прибавляется либо один, либо два часа.'
+          },
+          'mode': {
+            type: 'array',
+            title: 'Способ перехода на летнее время week-неделя, month-месяц',
+            items: {
+              type: 'string',
+                enum: ["week","month"]
+              },
+            description: 'Можно задать переход на летнее время месяцем или порядковым номером недели в текущем месяце'
+          },
+          'from_month': {
+            type: 'array',
+            title: 'Месяц перехода на летнее время',
+            items: {
+              type: 'string',
+                enum: ["Jan","Feb","Mar","Apr","May","Jun"]
+              }
+          },
+          'from_week': {
+            type: 'array',
+            title: 'Неделя перехода на летнее время',
+            items: {
+              type: 'string',
+                enum: ["1","2","3","4","last"]
+              }
+          },
+          'from_day_week': {
+            type: 'array',
+            title: 'День недели перехода на летнее время',
+            items: {
+              type: 'string',
+                enum: ["Su","Mo","Tu","We","Th","Fr","Sa"]
+              }
+          },
+          'from_time': {
+            type: 'string',
+            title: 'Время перехода на летнее время',
+          },
+          'to_month': {
+            type: 'array',
+            title: 'Месяц окончания летнего времени',
+            items: {
+              type: 'string',
+                enum: ["Jan","Feb","Mar","Apr","May","Jun"]
+              }
+          },
+          'to_week': {
+            type: 'array',
+            title: 'Неделя окончания летнего времени',
+            items: {
+              type: 'string',
+                enum: ["1","2","3","4","last"]
+              }
+          },
+          'to_day_week': {
+            type: 'array',
+            title: 'День недели окончания летнего времени',
+            items: {
+              type: 'string',
+                enum: ["Su","Mo","Tu","We","Th","Fr","Sa"]
+              }
+          },
+          'to_time': {
+            type: 'string',
+            title: 'Время окончания летнего времени'
+          },
+          'dhcp': {
+        		type:'boolean',
+            title: 'Включить DHCP',
+            description: 'При включенном DHCP IP-адреса устройствам раздаются автоматически и поля static_ip,ip,mask,gw не требуют заполнения'
+        	},
+          'static_ip': {
+        		type:'boolean',
+            title: 'Использовать статический IP адрес',
+            description: 'Если DHCP выключен то БК должен быть присвоен статический IP-адрес '
+        	},
+          'ip': {
+        		'type':'string',
+            title: 'IP-адрес',
+            description: 'Поле имеет смысл при выключенном DHCP'
+        	},
+          'mask': {
+            'type':'string',
+            title: 'Маска подсети',
+            description: 'Поле имеет смысл при выключенном DHCP'
+          },
+          'gw': {
+            'type':'string',
+            title: 'Основной шлюз',
+            description: 'Поле имеет смысл при выключенном DHCP'
+          },
+          'dns_1': {
+            'type':'string',
+            title: 'Предпочитаемый DNS-сервер',
+            description: 'DNS-сервер ставит в соответствие имена устройств их IP-адресам'
+          },
+          'dns_2': {
+            'type':'string',
+            title: 'Альтернативный DNS-сервер',
+            description: 'DNS-сервер ставит в соответствие имена устройств их IP-адресам'
+          },
+          'videoserver': {
+            type: 'array',
+            items: {
+              type: 'object',
+              title: 'Видеосервер',
+              properties: {
+                'id': {
+                  type: 'integer',
+                  title: '№',
+                  required: true,
+                  description: 'Уникальный идентификационный номер видеосервера - число'
+                },
+                'name': {
+                  type: 'string',
+                  title: 'Псевдоним',
+                  description: 'Псевдоним видеосервера - поле введено для удобства пользователей'
+                },
+                'active': {
+                  type: 'boolean',
+                  title: 'Включен',
+                  description: 'Поле включения/выключения видеорегистратора'
+                },
+                'ip': {
+                  type: 'string',
+                  title: 'IP-адрес',
+                  description: 'IP-адрес видеорегистратора'
+                },
+                'port': {
+                  'type': 'integer',
+                  title: 'Порт',
+                  description: 'Порт видеорегистратора'
+                },
+                'protocol': {
+                  'type': 'array',
+                  title: 'Протокол передачи видео',
+                  items: {
+                    type: 'string',
+                      enum: ["tcp","udp","rtsp"]
+                    },
+                  description: 'В зависимости от модели видеорегистратора и версии программного обеспечения могут использоваться разные протоколы передачи видеопотока.'
+                },
+              }
+            }
+          },
+
+          'media_service': {
+            type: 'array',
+            items: {
+              type: 'object',
+              title: 'Видеосервис',
+              properties: {
+                'id': {
+                  type: 'integer',
+                  title: '№',
+                  required: true,
+                  description: 'Порядковый номер видеосервиса'
+                },
+                'server_id': {
+                  type: 'integer',
+                  title: '№ видеосервера',
+                  required: true,
+                  description: '№ видеосервера для которого определяем текущий сидеосервис'
+                },
+                'name': {
+                  type: 'string',
+                  title: 'Псевдоним',
+                  description: 'Псевдоним используется для удобства пользователей'
+                },
+                'active': {
+                  type: 'boolean',
+                  title: 'Включен',
+                  description: 'Поле включает и выключает работу видеосервиса'
+                },
+                'ip': {
+                  type: 'string',
+                  title: 'IP-адрес',
+                  description: 'IP-адрес видеосервиса'
+                },
+                'port': {
+                  'type': 'integer',
+                  title: 'Порт',
+                  description: 'Порт видеосервиса'
+                },
+                'protocol': {
+                  'type': 'array',
+                  title: 'Протокол передачи видео',
+                  items: {
+                    type: 'string',
+                      enum: ["tcp","udp","rtsp"]
+                    },
+                    description: 'Видеосервис для передачи видеопотока использует протоколы передачи данных.'
+                },
+              }
+            }
+          },
+
+          'ip_camera': {
+            type: 'array',
+            items: {
+              type: 'object',
+              title: 'IP-камера',
+              properties: {
+                'id': {
+                  type: 'integer',
+                  title: '№',
+                  required: true,
+                  description: 'Уникальный идентификационный номер IP-камеры'
+                },
+                'name': {
+                  type: 'string',
+                  title: 'Псевдоним',
+                  description: 'Псевдоним IP камеры используется для удобства пользователей.'
+                },
+                'active': {
+                  type: 'boolean',
+                  title: 'Включен',
+                  description: 'Поле включает и выключает взаимодействие БК с камерой'
+                },
+                'ip': {
+                  type: 'string',
+                  title: 'IP-адрес',
+                  description: 'IP-адрес камеры. Камера не обязательно должна находиться в подсети состава, но в этом случае, соединение с ней будет потеряно при потере связи с WiFi роутером станции.'
+                },
+                'port': {
+                  'type': 'integer',
+                  title: 'Порт',
+                  description: 'Порт IP камеры, по которому происходит отдача видеопотока'
+                },
+                'substreams': {
+                  'type': 'integer',
+                  title: 'Количество субпотоков',
+                  description: 'В зависимости от модели камеры, могут быть количество субпотоков больше чем 0'
+                },
+                'protocol': {
+                  'type': 'array',
+                  title: 'Протокол передачи видео',
+                  items: {
+                    type: 'string',
+                      enum: ["tcp","udp","rtsp"]
+                    },
+                  description: 'IP камеры могут использовать разные протоколы для передачи видео.'
+                },
+              }
+            }
+          },
+          'script': {
+            'type': 'string',
+            title: 'Скрипт',
+            description: 'Скрипт будет выполнен при получении обновления настроек БК на станции через WiFi сеть. Скрипт в формате bash.'
+          },
+          'script_done': {
+            'type': 'boolean',
+            title: 'Скрипт выполнен',
+            description: 'Если поле отмечено, то скрипт выполняться не будет.'
+          },
+          'status': {
+            'type': 'string',
+            title: 'Статус для автоинформатора в формате JSON',
+            description: 'В поле должно находиться содержание json файла автоинформатора'
+          },
+          'csv': {
+            'type': 'string',
+            title: 'Список станций для автоинформатора в формате csv',
+            description: 'Список станций для автоинформатора используется несколькими программами на БК'
+          },
+        },
+        onSubmit: function (errors, values) {
+          $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/train",
+            data: values,
+            success: function(){},
+            dataType: "json",
+            contentType : "application/json"
+          });
+          if (errors) {
+            $('#res').html('<p>Произошла ошибка</p>');
+          }
+          else {
+            $('#res').html("<p>Запрос на изменение настроек отправлен на сервер. <br> Запрос можно повторить из консоли командой: curl -d '[" + values + "]' ' -H 'Content-Type: application/json'  http://127.0.0.1:5000/train" +
+              '</p>');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
